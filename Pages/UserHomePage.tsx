@@ -1,25 +1,53 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 const UserHomePage = () => {
+  const pendingSurveys = [
+    {id: 1, description: 'Survey 1', status: 'Pending'},
+    {id: 2, description: 'Survey 2', status: 'Pending'},
+    {id: 3, description: 'Survey 3', status: 'Pending'},
+  ];
+
+  const completedSurveys = [
+    {id: 4, description: 'Survey 4', status: 'Completed'},
+    {id: 5, description: 'Survey 5', status: 'Completed'},
+  ];
+
+  const handleCompleteSurvey = surveyId => {
+    // Perform logic to redirect to Survey Questions page for the selected survey
+    console.log(`Redirect to Survey Questions for surveyId: ${surveyId}`);
+  };
+
+  const renderPendingSurveys = () => {
+    return pendingSurveys.map(survey => (
+      <TouchableOpacity
+        key={survey.id}
+        style={styles.surveyContainer}
+        onPress={() => handleCompleteSurvey(survey.id)}>
+        <Text style={styles.surveyDescription}>{survey.description}</Text>
+        <Text style={styles.surveyStatus}>{survey.status}</Text>
+      </TouchableOpacity>
+    ));
+  };
+
+  const renderCompletedSurveys = () => {
+    return completedSurveys.map(survey => (
+      <View key={survey.id} style={styles.surveyContainer}>
+        <Text style={styles.surveyDescription}>{survey.description}</Text>
+        <Text style={styles.surveyStatus}>{survey.status}</Text>
+      </View>
+    ));
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.navigationBar}>
-        <Text style={styles.projectName}>Project Name</Text>
-        <Text style={styles.welcomeMessage}>Welcome!</Text>
-        <Text style={styles.menuOptions}>Menu</Text>
-      </View>
       <View style={styles.panel}>
-        <Text style={styles.panelTitle}>Active Users</Text>
-        <Text style={styles.panelContent}>10</Text>
-      </View>
-      <View style={styles.panel}>
-        <Text style={styles.panelTitle}>Active Surveys</Text>
-        <Text style={styles.panelContent}>5</Text>
+        <Text style={styles.panelTitle}>Pending Actions</Text>
+        {renderPendingSurveys()}
       </View>
       <View style={styles.panel}>
         <Text style={styles.panelTitle}>Completed Surveys</Text>
-        <Text style={styles.panelContent}>3</Text>
+        {renderCompletedSurveys()}
       </View>
     </View>
   );
@@ -29,40 +57,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  navigationBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    height: 64,
-    backgroundColor: 'lightblue',
-  },
-  projectName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  welcomeMessage: {
-    fontSize: 16,
-  },
-  menuOptions: {
-    fontSize: 16,
-  },
   panel: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     margin: 16,
     backgroundColor: 'lightgray',
     borderRadius: 8,
+    padding: 16,
   },
   panelTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
   },
-  panelContent: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  surveyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  surveyDescription: {
+    flex: 1,
+    fontSize: 16,
+  },
+  surveyStatus: {
+    fontSize: 16,
+    marginLeft: 16,
   },
 });
 

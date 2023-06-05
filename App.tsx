@@ -1,11 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
-import UserHomeScreen from './Pages/UserHomePage';
+import ManagerHomePage from './Pages/ManagerHomePage';
+import UserHomePage from './Pages/UserHomePage';
 
 const App = () => {
   return (
     <View style={{flex: 1}}>
-      <UserHomeScreen />
+      {/* <ManagerHomePage /> */}
+      <UserHomePage />
     </View>
   );
 };
